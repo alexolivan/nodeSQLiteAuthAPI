@@ -1,0 +1,38 @@
+{
+  "name": "basicsqliteauthapi",
+  "version": "1.0.0",
+  "description": "A very basic Authenticated and Authorized SQLite based API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "export NODE_ENV=dev && nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexolivan/nodeSQLiteBasicAuthAPI.git"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "RestAPI",
+    "SQLite",
+    "Sequelizejs",
+    "Authenticated",
+    "Authorized"
+  ],
+  "author": "Alejandro Olivan Alvarez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexolivan/nodeSQLiteBasicAuthAPI/issues"
+  },
+  "homepage": "https://github.com/alexolivan/nodeSQLiteBasicAuthAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "nodemon": "^1.18.9",
+    "sequelize": "^4.42.0",
+    "sqlite3": "^4.0.4"
+  }
+}
