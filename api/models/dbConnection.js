@@ -26,6 +26,42 @@ User.belongsTo(Role);
 dbConnection.sync()
 .then(() => {
   console.log('...database initialized!');
+
+  Role.findOrCreate({
+    where: { name: 'user' },
+    defaults: { desc: 'User ROLE' }
+  })
+  .spread((role, userRoleCreated) => {
+
+    Role.findOrCreate({
+      where: { name: 'admin' },
+      defaults: { desc: 'Admin ROLE' }
+    })
+    .spread((role, adminRoleCreated) => {
+
+      User.findOrCreate({
+        where: { username: config.defaultAdminCreds.adminUserName },
+        defaults: {
+          password: config.defaultAdminCreds.adminUserPass,
+          desc: 'Default Administrative user'
+        }
+      })
+      .spread((user, userCreated) => {
+        user.setRole(role);
+        if (userCreated){
+          console.log('initialized Admin User.')
+        }
+      });
+
+      if (adminRoleCreated){
+        console.log('initialized Admin ROLE')
+      }
+    });
+
+    if (userRoleCreated){
+      console.log('initialized User ROLE.')
+    }
+  });  
 });
 
 module.exports = {User, Role};

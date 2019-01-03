@@ -1,12 +1,26 @@
 const Models = require('../models/dbConnection.js');
 const Role = Models.Role
 
+// Auxiliary function for common validation
+validateBody = (req, res) => {
+  if(!req.body.name) {
+    return {
+        sucess: false,
+        httpCode: 400,
+        message: "Role name field cannot be empty."
+    };
+  }
+  return { success: true}
+};
+
 // Create and Save a new Role
 exports.create = (req, res) => {
+
   // Validate request
-  if(!req.body.name) {
-    return res.status(400).send({
-      message: "Role name can not be empty"
+  validation = validateBody(req);
+  if (!validation.success) {
+    return res.status(validation.httpCode).send({
+        message: validation.message
     });
   }
 
@@ -58,10 +72,12 @@ exports.findOne = (req, res) => {
 
 // Update a role identified by the roleId in the request
 exports.update = (req, res) => {
+  
   // Validate request
-  if(!req.body.name) {
-    return res.status(400).send({
-      message: "Role name can not be empty"
+  validation = validateBody(req);
+  if (!validation.success) {
+    return res.status(validation.httpCode).send({
+        message: validation.message
     });
   }
 

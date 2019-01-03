@@ -12,6 +12,10 @@ const dev = {
  },
  jwt: {
    secret: 'myJWTVerySecret'
+ },
+ defaultAdminCreds: {
+   adminUserName: 'admin',
+   adminUserPass: 'verySecret'
  }
 };
 
@@ -27,6 +31,10 @@ const test = {
  },
  jwt: {
    secret: 'myJWTVerySecret'
+ },
+ defaultAdminCreds: {
+   adminUserName: 'admin',
+   adminUserPass: 'verySecret'
  }
 };
 

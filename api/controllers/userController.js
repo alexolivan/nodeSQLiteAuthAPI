@@ -6,22 +6,29 @@ const Role = Models.Role
 const User = Models.User
 
 // Auxiliary function for common validation
-validateBody = (req, res) => {
+validateBody = (req) => {
   if(!req.body.username) {
-    return res.status(400).send({
+    return {
+        sucess: false,
+        httpCode: 400,
         message: "User username field cannot be empty."
-    });
+    };
   }
   if( !req.body.password) {
-    return res.status(400).send({
+    return {
+        sucess: false,
+        httpCode: 400,
         message: "User password field cannot be empty."
-    });
+    };
   }
   if(!req.body.role) {
-    return res.status(400).send({
+    return {
+        sucess: false,
+        httpCode: 400,
         message: "User role field cannot be empty."
-    });
+    };
   }
+  return { success: true}
 };
 
 // Login user
@@ -90,7 +97,12 @@ exports.login = (req, res) => {
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
-  validateBody(req, res);
+  validation = validateBody(req);
+  if (!validation.success) {
+    return res.status(validation.httpCode).send({
+        message: validation.message
+    });
+  }
 
   Role.findOne({
     where: { name: req.body.role }
@@ -151,7 +163,12 @@ exports.findOne = (req, res) => {
 // Update a role identified by the roleId in the request
 exports.update = (req, res) => {
   // Validate request
-  validateBody(req, res);
+  validation = validateBody(req);
+  if (!validation.success) {
+    return res.status(validation.httpCode).send({
+        message: validation.message
+    });
+  }
 
   Role.find({
     where: { name: req.body.role }
